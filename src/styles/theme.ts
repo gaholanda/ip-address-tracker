@@ -1,9 +1,12 @@
 export default {
   colors: {
     primary: '#2b2b2b',
-    secondary: '969696',
+    secondary: '#969696',
+    light: '#FFFFFF',
+    dark: '#000000',
   },
   breakpoints: {
-    mobile: '375px',
+    sm: '767px',
+    lg: '1440px',
   },
 };

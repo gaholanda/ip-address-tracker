@@ -5,9 +5,12 @@ declare module 'styled-components' {
     colors: {
       primary: string;
       secondary: string;
+      light: string;
+      dark: string;
     };
     breakpoints: {
-      mobile: string;
+      sm: string;
+      lg: string;
     };
   }
 }

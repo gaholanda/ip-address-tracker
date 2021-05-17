@@ -20,12 +20,16 @@ const SearchForm = styled.form`
 
   button {
     cursor: pointer;
-    padding: 1rem 1.5rem;
+    padding: 1rem;
     border: none;
     background-color: ${(props) => props.theme.colors.dark};
 
     &:hover {
       background-color: ${(props) => props.theme.colors.primary};
+    }
+
+    @media (min-width: ${(props) => props.theme.breakpoints.sm}) {
+      padding: 1rem 1.5rem;
     }
   }
 `;

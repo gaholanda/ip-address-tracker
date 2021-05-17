@@ -3,10 +3,11 @@ import styled from 'styled-components';
 const Info = styled.ul`
   position: relative;
   top: -50px;
+  z-index: 1001;
   display: flex;
   flex-direction: column;
   background-color: ${(props) => props.theme.colors.light};
-  padding: 2rem 0 1rem;
+  padding: 1rem 0;
   margin: auto;
   border-radius: 1rem;
   width: 100%;
@@ -30,12 +31,13 @@ const Info = styled.ul`
   }
 
   h3 {
-    font-size: 1.8rem;
+    font-size: 1.4rem;
     font-weight: 500;
     margin-bottom: 1.5rem;
   }
 
   @media (min-width: ${(props) => props.theme.breakpoints.sm}) {
+    padding: 2rem 0 1rem;
     flex-direction: row;
 
     li {
@@ -50,6 +52,10 @@ const Info = styled.ul`
         width: 1px;
         margin-left: -2rem;
       }
+    }
+
+    h3 {
+      font-size: 1.8rem;
     }
   }
 `;

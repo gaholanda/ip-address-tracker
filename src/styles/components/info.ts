@@ -33,7 +33,7 @@ const Info = styled.ul`
   h3 {
     font-size: 1.4rem;
     font-weight: 500;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.5rem;
   }
 
   @media (min-width: ${(props) => props.theme.breakpoints.sm}) {
@@ -56,6 +56,7 @@ const Info = styled.ul`
 
     h3 {
       font-size: 1.8rem;
+      margin-bottom: 1.5rem;
     }
   }
 `;

@@ -1,8 +1,8 @@
 import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
 import PublicIP from 'public-ip';
+import axios from 'axios';
 
-import API from '../api';
 import Header from '../styles/components/header';
 import Title from '../styles/components/title';
 import Container from '../styles/components/container';
@@ -35,11 +35,13 @@ export default Home;
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const ip = await PublicIP.v4();
-  const info = await API.GetIpInfo(ip);
+  const { data } = await axios.get(
+    `${process.env.API_URL}${process.env.API_KEY}&ipAddress=${ip}`
+  );
 
   return {
     props: {
-      info: info,
+      info: data,
     },
   };
 };

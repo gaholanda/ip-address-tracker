@@ -13,7 +13,9 @@ function IpInfo() {
       </li>
       <li>
         <p>location</p>
-        <h3>{info.location?.city ?? '-'}</h3>
+        <h3>
+          {info.location?.city ?? '-'}, {info.location?.region ?? '-'}
+        </h3>
       </li>
       <li>
         <p>timezone</p>

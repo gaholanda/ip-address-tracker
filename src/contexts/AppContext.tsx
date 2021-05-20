@@ -1,6 +1,6 @@
+import axios from 'axios';
 import React, { useEffect, useState, createContext, ReactNode } from 'react';
 import nprogress from 'nprogress';
-import API from '../api';
 
 interface AppContextData {
   info: {
@@ -54,9 +54,10 @@ export function AppProvider({ children, ...rest }: AppProviderProps) {
 
   useEffect(() => {
     if (ip !== '') {
-      API.GetIpInfo(ip)
-        .then((res) => {
-          setInfo(res);
+      axios
+        .get(`api/info?ip=${ip}`)
+        .then(({ data }) => {
+          setInfo(data);
           nprogress.done();
         })
         .catch((err) => {
@@ -68,9 +69,10 @@ export function AppProvider({ children, ...rest }: AppProviderProps) {
 
   useEffect(() => {
     if (domain !== '') {
-      API.GetDomainInfo(domain)
-        .then((res) => {
-          setInfo(res);
+      axios
+        .get(`api/info?domain=${domain}`)
+        .then(({ data }) => {
+          setInfo(data);
           nprogress.done();
         })
         .catch((err) => {

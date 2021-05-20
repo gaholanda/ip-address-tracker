@@ -9,19 +9,19 @@ function IpInfo() {
     <Info>
       <li>
         <p>ip address</p>
-        <h3>{info.ip}</h3>
+        <h3>{info.ip ?? '-'}</h3>
       </li>
       <li>
         <p>location</p>
-        <h3>{info.location.city}</h3>
+        <h3>{info.location?.city ?? '-'}</h3>
       </li>
       <li>
         <p>timezone</p>
-        <h3>UTC {info.location.timezone}</h3>
+        <h3>UTC {info.location?.timezone ?? '-'}</h3>
       </li>
       <li>
         <p>isp</p>
-        <h3>{info.isp}</h3>
+        <h3>{info.isp ?? '-'}</h3>
       </li>
     </Info>
   );

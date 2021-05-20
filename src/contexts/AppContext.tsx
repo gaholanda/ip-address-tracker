@@ -1,4 +1,6 @@
-import React, { useState, createContext, ReactNode } from 'react';
+import React, { useEffect, useState, createContext, ReactNode } from 'react';
+import nprogress from 'nprogress';
+import API from '../api';
 
 interface AppContextData {
   info: {
@@ -13,14 +15,12 @@ interface AppContextData {
     };
     isp?: string;
   };
-  ip: string;
-  changeInfo: (value: Object) => void;
   changeIP: (value: string) => void;
+  changeDomain: (value: string) => void;
 }
 
 interface AppProviderProps {
   children: ReactNode;
-  ip: string;
   info: Object;
 }
 
@@ -41,24 +41,51 @@ export const AppContext = createContext({} as AppContextData);
 
 export function AppProvider({ children, ...rest }: AppProviderProps) {
   const [info, setInfo] = useState(rest.info ?? DefaultInfo);
-
-  const [ip, setIp] = useState(rest.ip ?? '');
-
-  function changeInfo(info: Object) {
-    setInfo(info);
-  }
+  const [ip, setIp] = useState('');
+  const [domain, setDomain] = useState('');
 
   function changeIP(ip: string) {
     setIp(ip);
   }
 
+  function changeDomain(domain: string) {
+    setDomain(domain);
+  }
+
+  useEffect(() => {
+    if (ip !== '') {
+      API.GetIpInfo(ip)
+        .then((res) => {
+          setInfo(res);
+          nprogress.done();
+        })
+        .catch((err) => {
+          console.log(err);
+          nprogress.done();
+        });
+    }
+  }, [ip]);
+
+  useEffect(() => {
+    if (domain !== '') {
+      API.GetDomainInfo(domain)
+        .then((res) => {
+          setInfo(res);
+          nprogress.done();
+        })
+        .catch((err) => {
+          console.log(err);
+          nprogress.done();
+        });
+    }
+  }, [domain]);
+
   return (
     <AppContext.Provider
       value={{
         info,
-        ip,
-        changeInfo,
         changeIP,
+        changeDomain,
       }}
     >
       {children}

@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import { AppContext } from '../contexts/AppContext';
 import Info from '../styles/components/info';
 
@@ -14,7 +14,8 @@ function IpInfo() {
       <li>
         <p>location</p>
         <h3>
-          {info.location?.city ?? '-'}, {info.location?.region ?? '-'}
+          {info.location?.city ?? '-'}, {info.location?.region ?? '-'},{' '}
+          {info.location?.country ?? '-'}
         </h3>
       </li>
       <li>

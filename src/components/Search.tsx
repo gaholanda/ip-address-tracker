@@ -1,4 +1,4 @@
-import { useRef, useContext } from 'react';
+import React, { useRef, useContext } from 'react';
 import nprogress from 'nprogress';
 import { AppContext } from './../contexts/AppContext';
 import SearchForm from './../styles/components/search';

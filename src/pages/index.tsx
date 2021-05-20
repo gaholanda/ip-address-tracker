@@ -1,5 +1,5 @@
 import React from 'react';
-import { GetServerSideProps } from 'next';
+import { GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
 import PublicIP from 'public-ip';
 import axios from 'axios';
@@ -34,7 +34,7 @@ function Home(props: HomeProps) {
 
 export default Home;
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const ip = await PublicIP.v4();
   const { data } = await axios.get(
     `${process.env.API_URL}${process.env.API_KEY}&ipAddress=${ip}`

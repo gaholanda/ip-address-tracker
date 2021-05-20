@@ -3,22 +3,11 @@ import React from 'react';
 import 'jest-styled-components';
 
 import App from '../../src/pages';
+import Info from '../../__mocks__/ipInfo';
 
 describe('Open application', () => {
   it('open the index page', () => {
-    const info = {
-      ip: '8.8.8.8',
-      location: {
-        country: 'US',
-        region: 'California',
-        city: 'Mountain View',
-        lat: 37.38605,
-        lng: -122.08385,
-        timezone: '-07:00',
-      },
-      isp: 'Google LLC',
-    };
-    const app = shallow(<App info={info} />);
+    const app = shallow(<App info={Info} />);
     expect(app.prop('info')).toHaveProperty('ip');
     expect(app.prop('info')).toHaveProperty('location');
     expect(app.prop('info')).toHaveProperty('isp');

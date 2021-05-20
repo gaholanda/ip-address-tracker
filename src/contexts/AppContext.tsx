@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState, createContext, ReactNode } from 'react';
 import nprogress from 'nprogress';
+import PublicIP from 'public-ip';
 
 interface AppContextData {
   info: {
@@ -17,6 +18,7 @@ interface AppContextData {
   };
   changeIP: (value: string) => void;
   changeDomain: (value: string) => void;
+  changeInfo: (value: Object) => void;
 }
 
 interface AppProviderProps {
@@ -24,23 +26,10 @@ interface AppProviderProps {
   info: Object;
 }
 
-const DefaultInfo = {
-  ip: '8.8.8.8',
-  location: {
-    country: 'US',
-    region: 'California',
-    city: 'Mountain View',
-    lat: 37.38605,
-    lng: -122.08385,
-    timezone: '-07:00',
-  },
-  isp: 'Google LLC',
-};
-
 export const AppContext = createContext({} as AppContextData);
 
 export function AppProvider({ children, ...rest }: AppProviderProps) {
-  const [info, setInfo] = useState(rest.info ?? DefaultInfo);
+  const [info, setInfo] = useState(rest.info);
   const [ip, setIp] = useState('');
   const [domain, setDomain] = useState('');
 
@@ -51,6 +40,26 @@ export function AppProvider({ children, ...rest }: AppProviderProps) {
   function changeDomain(domain: string) {
     setDomain(domain);
   }
+
+  function changeInfo(info: Object) {
+    setInfo(info);
+  }
+
+  useEffect(() => {
+    nprogress.start();
+    PublicIP.v4().then((ip) =>
+      axios
+        .get(`api/info?ip=${ip}`)
+        .then(({ data }) => {
+          setInfo(data);
+          nprogress.done();
+        })
+        .catch((err) => {
+          console.log(err);
+          nprogress.done();
+        })
+    );
+  }, []);
 
   useEffect(() => {
     if (ip !== '') {
@@ -88,6 +97,7 @@ export function AppProvider({ children, ...rest }: AppProviderProps) {
         info,
         changeIP,
         changeDomain,
+        changeInfo,
       }}
     >
       {children}

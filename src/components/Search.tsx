@@ -3,8 +3,6 @@ import nprogress from 'nprogress';
 import { AppContext } from './../contexts/AppContext';
 import SearchForm from './../styles/components/search';
 
-import 'nprogress/nprogress.css';
-
 function Search() {
   const inputRef = useRef(null);
   const { changeIP, changeDomain } = useContext(AppContext);

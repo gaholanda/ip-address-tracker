@@ -11,6 +11,8 @@ import Search from '../components/Search';
 import IpInfo from '../components/IpInfo';
 import { AppProvider } from './../contexts/AppContext';
 
+import 'nprogress/nprogress.css';
+
 interface HomeProps {
   info: Object;
 }
@@ -35,14 +37,9 @@ function Home(props: HomeProps) {
 export default Home;
 
 export const getStaticProps: GetStaticProps = async () => {
-  const ip = await PublicIP.v4();
-  const { data } = await axios.get(
-    `${process.env.API_URL}${process.env.API_KEY}&ipAddress=${ip}`
-  );
-
   return {
     props: {
-      info: data,
+      info: {},
     },
   };
 };

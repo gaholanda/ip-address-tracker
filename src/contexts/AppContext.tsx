@@ -46,19 +46,21 @@ export function AppProvider({ children, ...rest }: AppProviderProps) {
   }
 
   useEffect(() => {
-    nprogress.start();
-    PublicIP.v4().then((ip) =>
-      axios
-        .get(`api/info?ip=${ip}`)
-        .then(({ data }) => {
-          setInfo(data);
-          nprogress.done();
-        })
-        .catch((err) => {
-          console.log(err);
-          nprogress.done();
-        })
-    );
+    if (process.env.APP_ENV === 'production') {
+      nprogress.start();
+      PublicIP.v4().then((ip) =>
+        axios
+          .get(`api/info?ip=${ip}`)
+          .then(({ data }) => {
+            setInfo(data);
+            nprogress.done();
+          })
+          .catch((err) => {
+            console.log(err);
+            nprogress.done();
+          })
+      );
+    }
   }, []);
 
   useEffect(() => {

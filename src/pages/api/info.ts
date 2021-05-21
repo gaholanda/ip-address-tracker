@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = `${process.env.API_URL}${process.env.API_KEY}`;
+const API_URL = `https://geo.ipify.org/api/v1?apiKey=${process.env.API_KEY}`;
 
 export default async (req, res) => {
   const { ip, domain } = req.query;

@@ -1,8 +1,6 @@
 import React from 'react';
-import { GetStaticProps } from 'next';
+import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
-import PublicIP from 'public-ip';
-import axios from 'axios';
 
 import Header from '../styles/components/header';
 import Title from '../styles/components/title';
@@ -10,6 +8,7 @@ import Container from '../styles/components/container';
 import Search from '../components/Search';
 import IpInfo from '../components/IpInfo';
 import { AppProvider } from './../contexts/AppContext';
+import EnvironmentDiv from './../styles/components/environment';
 
 import 'nprogress/nprogress.css';
 
@@ -22,6 +21,9 @@ const Map = dynamic(() => import('../components/Map'), { ssr: false });
 function Home(props: HomeProps) {
   return (
     <AppProvider {...props}>
+      {process.env.APP_ENV !== 'production' && (
+        <EnvironmentDiv>{process.env.APP_ENV}</EnvironmentDiv>
+      )}
       <Container>
         <Header>
           <Title>IP Address Tracker</Title>
@@ -36,10 +38,12 @@ function Home(props: HomeProps) {
 
 export default Home;
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
+  const DefaultInfo = require('../../__mocks__/ipInfo');
+
   return {
     props: {
-      info: {},
+      info: process.env.APP_ENV === 'production' ? {} : DefaultInfo,
     },
   };
 };

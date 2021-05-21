@@ -3,19 +3,64 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "set APP_ENV=development && next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "build:staging": "set APP_ENV=staging && next build",
+    "start:staging": "set APP_ENV=staging && next start",
+    "test": "jest"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
+    },
+    "transform": {
+      "^.+\\.(ts|tsx)$": "ts-jest"
+    },
+    "testMatch": [
+      "**/__tests__/**/*.(ts|tsx)"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/jest.setup.ts"
+    ],
+    "testPathIgnorePatterns": [
+      "./.next/",
+      "./node_modules/"
+    ],
+    "globals": {
+      "ts-jest": {
+        "tsconfig": "tsconfig.jest.json"
+      }
+    }
   },
   "dependencies": {
+    "axios": "^0.21.1",
+    "leaflet": "^1.7.1",
     "next": "10.2.0",
+    "nprogress": "^0.2.0",
+    "public-ip": "^4.0.3",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "react-leaflet": "^3.2.0",
+    "styled-components": "^5.3.0"
   },
   "devDependencies": {
+    "@testing-library/react": "^11.2.7",
+    "@types/enzyme": "^3.10.8",
+    "@types/jest": "^26.0.23",
+    "@types/leaflet": "^1.7.0",
     "@types/node": "^15.3.0",
+    "@types/nprogress": "^0.2.0",
     "@types/react": "^17.0.5",
     "@types/react-dom": "^17.0.5",
+    "@types/styled-components": "^5.1.9",
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.1",
+    "babel-plugin-styled-components": "^1.12.0",
+    "env-cmd": "^10.1.0",
+    "enzyme": "^3.11.0",
+    "jest": "^26.6.3",
+    "jest-styled-components": "^7.0.4",
+    "ts-jest": "^26.5.6",
     "typescript": "^4.2.4"
   }
 }
